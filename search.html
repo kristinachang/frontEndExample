@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="providerApp">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Provider Search</title>
+    <!-- Angular-Busy CSS -->
+    <link type="text/css" rel="stylesheet" href="angular-busy.css">
+    <!-- Bootstrap core CSS -->
+    <link type="text/css" rel="stylesheet" href="bootstrap.min.css">
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="style.css">
+  </head>
+
+  <body ng-controller="SearchCtrl">
+    <div class="container-fluid">
+      
+      <div class="header clearfix">
+        <div class="top">
+          MEDCOMPANY<br>
+          Medcompany Efficacy Study
+        </div> <!-- end .top -->
+      </div> <!-- end .header -->
+      
+      <div class="jumbotron">
+        <div cg-busy="loadPromise"></div>
+        <h2>Search for a physician or organization</h2>
+
+        <form ng-submit="searchProvider()" class="form">
+          <div class="row">
+              <input type="text" class="form-control" ng-model="search" placeholder="Search for a doctor, physician, or organization by name" required="" autofocus="">
+          </div> <!-- end .row -->
+        </form> <!-- end .form -->
+        
+        <form ng-submit="showProvider()" class="form">
+          <div class="row">
+            <div class="provider" ng-show="search" dir-paginate="provider in providers | filter:search | itemsPerPage:5" ng-click="showProvider(provider)">
+              <span>{{provider.first_name}} {{provider.last_name}} {{provider.organization_name}}</span>
+            </div>
+          </div> <!-- end .row -->
+        </form> <!-- end .form -->
+      </div> <!-- end .jumbotron -->
+      
+      <div class="row" id="pagination" ng-show="search">
+          <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+      </div> <!-- end #pagination -->
+      
+      <footer class="footer">
+        <div class="row">
+          <div class="col-xs-6 col-sm-4">Contact Us</div>
+          <div class="col-xs-6 col-sm-4">
+            <div id="progressBar">
+              <uib-progressbar class="progress-striped" value="35" type="success">35%</uib-progressbar>
+            </div> <!-- end #progressBar --> 
+          </div>
+        </div> <!-- end .row -->
+      </footer> <!-- end .footer -->
+    </div> <!-- end .container -->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.2.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="angular-busy.js"></script>
+    <script src="dirPagination.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

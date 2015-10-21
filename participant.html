@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Participation Form</title>
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header clearfix">
+        <div class="top">
+            MEDCOMPANY<br>
+            Medcompany Efficacy Study
+        </div> <!-- end .top -->
+      </div> <!-- end .header -->
+      
+      <div class="jumbotron">
+          <h2>Voluntary Participation</h2>
+          <form method="POST" class="form">
+            <p>Participation in this study is voluntary. If you do not wish to participate, there will be no penalty of any kind.</p>
+            <p>To confirm your intent to enroll in this study, please complete the form below.</p>
+            
+            <div class="row">
+              <div class="col-sm-6">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="John" required="" oninput="buttonEnable();" autofocus="">
+              </div>
+              <div class="col-sm-6">
+                <label for="lastname">Last Name</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Doe" required="" oninput="buttonEnable();">
+              </div>
+            </div> <!-- end .row -->
+
+            <div class="city">
+              <label for="city">What city were you born in?</label>
+              <input type="text" class="form-control" id="city" name="city" placeholder="City Name" required="" oninput="buttonEnable();">
+            </div> <!-- end .city -->
+            
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkbox" onchange="buttonEnable();" required>I consent to participate in the study
+              </label>
+            </div> <!-- end .checkbox -->
+            
+            <button class="button" type="button" id="submitButton" onclick="enroll();" disabled>Complete the form to continue enrollment</button>
+            <!-- if type="submit", use preventDefault -->
+
+          </form>
+      </div> <!-- end .jumbotron-->
+      
+      <footer class="footer">
+          <p>Contact Us</p>
+      </footer>
+
+    </div> <!-- end .container -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script>    
+      // Enable submit button when form completed
+      function buttonEnable() {
+        //console.log("buttonEnable was called");
+        var firstName = document.getElementById("firstname").value;
+        var lastName = document.getElementById("lastname").value;
+        var city = document.getElementById("city").value;
+        var checkBoxElement = document.getElementById("checkbox");
+        var buttonElement = document.getElementById("submitButton");
+        
+        if ((firstName!="")&&(lastName!="")&&(city!="")&&(checkBoxElement.checked)) {
+          buttonElement.disabled = false;
+        }
+        else {
+          buttonElement.disabled = true;
+        };
+      };
+
+      // Post form data as JSON, handle response, and go to search
+      function enroll() {
+        var firstName = document.getElementById("firstname").value;
+        var lastName = document.getElementById("lastname").value;
+        var city = document.getElementById("city").value;
+        var checkBoxElement = document.getElementById("checkbox");
+        var consent = checkBoxElement.value;
+
+        if (checkBoxElement.checked) {
+          consent = "true";
+        }
+        else {
+          consent = "false";
+        };
+        
+        var formData = {firstName: firstName, lastName: lastName, city: city, consent: consent};
+        //console.log(formData);
+        var fakeURL = "http://example.com";
+
+        $.ajax({
+          type: "POST",
+          url: fakeURL,
+          data: formData,
+          dataType: "json",
+          success: function (data, textStatus, jqXHR) {
+            //this won't happen because fakeURL will not load.
+            if (textStatus === "success") {
+              console.log("post request successful");
+              location = "search.html";
+            }
+            else {
+              console.log("post request failed");
+            }
+          },
+          error: function (data, textStatus, jqXHR) {
+            //handle post xhr error, and go on to search page.
+            console.log("XHR Error, fake URL");
+            console.log(formData);
+            location = "search.html"; 
+          }
+        });
+
+        // Another way, without jquery...
+        // var postObj = new XMLHttpRequest();
+
+        // postObj.addEventListener("load", handlePostXhrLoad, null);
+        // postObj.addEventListener("error", handlePostXhrError, null);
+        // postObj.open('POST', fakeURL, true);
+        // postObj.send(JSON.stringify(formData));
+        
+        // function handlePostXhrLoad() {
+        //   // this won't happen because fakeURL will not load.
+        //   if (postObj.status === 200) {
+        //     console.log("status 200");
+        //     console.log(postObj.statusText);
+        //     location = "search.html"; 
+        //   } else {
+        //     console.log("status not 200");
+        //     console.error(postObj.statusText);
+        //   };
+        // //console.log("handlePostXhrLoad was called");
+        // }
+        // function handlePostXhrError() {
+        //   //handle post xhr error, and go on to search page.
+        //   console.log("XHR Error");
+        //   console.log(formData);
+        //   location = "search.html"; 
+        // }
+        // //console.log("handlePostXhrError was called");
+      }; 
+    </script>
+  </body>
+</html>
