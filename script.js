@@ -7,7 +7,7 @@ var app = angular.module("providerApp", ['ngAnimate', 'ui.bootstrap', 'cgBusy', 
 		//console.log($scope.providers);
 		
 	});
-	
+	// loading state
 	$scope.loadPromise = $http.get('providers.json');
 	
 	$scope.showProvider = function(provider){
@@ -23,15 +23,8 @@ var app = angular.module("providerApp", ['ngAnimate', 'ui.bootstrap', 'cgBusy', 
 	  var organizationName = provider.organization_name;
 	  var fakeURL = "http://example.com";
 	  var formData = {firstName: firstName, lastName: lastName, organizationName: organizationName};
-	//  var formData = {
-  //         "person" : [{
-  //           firstName: firstName,
-  //           lastName: lastName
-  //         }],
-  //         "organization" : [{
-  //           organizationName: organizationName
-  //         }]
-  //   };
+	  // this will have undefined values...can store differently.
+
 	  console.log(formData);
 	  $http.post(fakeURL, formData).success(function(data){
 	    console.log(data);
