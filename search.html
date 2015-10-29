@@ -20,13 +20,14 @@
       <div class="header clearfix">
         <div class="top">
           MEDCOMPANY<br>
-          Medcompany Efficacy Study
+          Provider Search Page
         </div> <!-- end .top -->
       </div> <!-- end .header -->
       
       <div class="jumbotron">
         <div cg-busy="loadPromise"></div>
         <h2>Search for a physician or organization</h2>
+        <h6>(if using Chrome, please start http-server in terminal, and open console to see dynamic functionality)</h6>
 
         <form ng-submit="searchProvider()" class="form">
           <div class="row">
@@ -47,16 +48,17 @@
           <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
       </div> <!-- end #pagination -->
       
-      <footer class="footer">
+      <!-- <footer class="footer">
         <div class="row">
           <div class="col-xs-6 col-sm-4">Contact Us</div>
           <div class="col-xs-6 col-sm-4">
             <div id="progressBar">
               <uib-progressbar class="progress-striped" value="35" type="success">35%</uib-progressbar>
-            </div> <!-- end #progressBar --> 
-          </div>
-        </div> <!-- end .row -->
-      </footer> <!-- end .footer -->
+            </div> --> <!-- end #progressBar --> 
+          <!-- </div> -->
+        <!-- </div> --> <!-- end .row -->
+      <!-- </footer> --> <!-- end .footer -->
+      
     </div> <!-- end .container -->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
